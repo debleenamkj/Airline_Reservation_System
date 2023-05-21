@@ -62,7 +62,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(DesktopLayout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(jLabel1)
-                .addContainerGap(496, Short.MAX_VALUE))
+                .addContainerGap(490, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Customer");
