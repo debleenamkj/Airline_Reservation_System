@@ -17,8 +17,8 @@ public class DBConn {
 	
 	public static Connection getConnection() throws Exception
 	{
-		Class.forName("com.mysql.jdbc.Driver");
-		connection=DriverManager.getConnection("jdbc:mysql://localhost/airline_reservation_system","root","Anuradha@1");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		connection=DriverManager.getConnection("jdbc:mysql://localhost/airline_reservation_system","root","Password@123");
 		return connection;
 	}
 }
