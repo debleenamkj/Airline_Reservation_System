@@ -90,6 +90,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel6.setText("National ID");
 
+        firstname.setEditable(false);
         firstname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         firstname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +98,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
             }
         });
 
+        lastname.setEditable(false);
         lastname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lastname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +106,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
             }
         });
 
+        passport.setEditable(false);
         passport.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         passport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +114,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
             }
         });
 
+        nationalid.setEditable(false);
         nationalid.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         nationalid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +190,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 140));
 
+        contact.setEditable(false);
         contact.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         contact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,6 +206,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
 
         male.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         male.setText("Male");
+        male.setEnabled(false);
         male.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 maleActionPerformed(evt);
@@ -209,6 +215,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
 
         female.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         female.setText("Female");
+        female.setEnabled(false);
         female.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 femaleActionPerformed(evt);
@@ -218,6 +225,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel10.setText("Date Of Birth");
 
+        address.setEditable(false);
         address.setColumns(20);
         address.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         address.setRows(5);
@@ -226,6 +234,7 @@ public class SearchCustomer extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel7.setText("Address");
 
+        dob.setEditable(false);
         dob.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dob.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

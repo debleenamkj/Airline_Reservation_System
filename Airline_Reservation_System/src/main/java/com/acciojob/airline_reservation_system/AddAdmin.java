@@ -82,6 +82,7 @@ public class AddAdmin extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel2.setText("Admin ID");
 
+        adminid.setEditable(false);
         adminid.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         adminid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

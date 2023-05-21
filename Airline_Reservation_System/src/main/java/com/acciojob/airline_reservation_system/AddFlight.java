@@ -65,8 +65,8 @@ public class AddFlight extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         flightname = new javax.swing.JTextField();
-        arrival = new javax.swing.JTextField();
-        departure = new javax.swing.JTextField();
+        arrival = new javax.swing.JComboBox<>();
+        departure = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         fare = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -90,6 +90,7 @@ public class AddFlight extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel2.setText("Flight ID");
 
+        flightid.setEditable(false);
         flightid.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         flightid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,19 +114,9 @@ public class AddFlight extends javax.swing.JInternalFrame {
             }
         });
 
-        arrival.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        arrival.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                arrivalActionPerformed(evt);
-            }
-        });
+        arrival.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Delhi", "Kolkata", "Chennai", "Mumbai", "Bengaluru"}));
 
-        departure.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        departure.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                departureActionPerformed(evt);
-            }
-        });
+        departure.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Delhi", "Kolkata", "Chennai", "Mumbai", "Bengaluru"}));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,11 +130,11 @@ public class AddFlight extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel5))
                 .addGap(72, 72, 72)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(departure, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                    .addComponent(arrival)
-                    .addComponent(flightname)
-                    .addComponent(flightid))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(arrival, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(flightname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(flightid, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(departure, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(34, 34, 34))
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,13 +149,13 @@ public class AddFlight extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(flightname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(arrival, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(departure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel4)
+                    .addComponent(arrival, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(departure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -315,14 +306,6 @@ public class AddFlight extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_flightnameActionPerformed
 
-    private void arrivalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrivalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_arrivalActionPerformed
-
-    private void departureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departureActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_departureActionPerformed
-
     private void durationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_durationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_durationActionPerformed
@@ -338,8 +321,8 @@ public class AddFlight extends javax.swing.JInternalFrame {
             
             String flightID = flightid.getText();
             String flightName = flightname.getText();
-            String arrive = arrival.getText();
-            String depart = departure.getText();
+            String arrive = arrival.getSelectedItem().toString();
+            String depart = departure.getSelectedItem().toString();
             String duratn = duration.getText();
             String seat = seats.getText();
             String cost = fare.getText();
@@ -378,9 +361,9 @@ public class AddFlight extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField arrival;
+    private javax.swing.JComboBox<String> arrival;
     private com.toedter.calendar.JDateChooser date;
-    private javax.swing.JTextField departure;
+    private javax.swing.JComboBox<String> departure;
     private javax.swing.JTextField duration;
     private javax.swing.JTextField fare;
     private javax.swing.JTextField flightid;

@@ -93,6 +93,7 @@ public class AddCustomer extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel2.setText("Customer ID");
 
+        custID.setEditable(false);
         custID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         custID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
