@@ -6,6 +6,12 @@ package com.acciojob.airline_reservation_system;
 
 import java.awt.Color;
 import static java.awt.Color.blue;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -111,6 +117,11 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jButton2.setText("CANCEL");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,19 +164,41 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
+            // TODO add your handling code here:
 //        this.setVisible(false);
 //        Main main = new Main();
 //        main.setVisible(true);
-
-        String userName = username.getText();
-        String pass = password.getText();
-        System.out.print(pass);
+        try {
+            Connection conn = DBConn.getConnection();
+            String userName = username.getText();
+            String pass = password.getText();
+            PreparedStatement psmt = conn.prepareStatement("select * from admin where UserName = ? and Password = ?");
+            psmt.setString(1, userName);
+            psmt.setString(2,pass);
+            ResultSet rs = psmt.executeQuery();
+            if(rs.next() == true){
+                Main main = new Main();
+                main.setVisible(true);
+                this.setVisible(false);
+            } else{
+                JOptionPane.showMessageDialog(null, "Incorrect Username or Password");
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

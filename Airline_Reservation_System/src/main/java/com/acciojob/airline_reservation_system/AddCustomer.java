@@ -234,7 +234,12 @@ public class AddCustomer extends javax.swing.JInternalFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jButton2.setText("DELETE");
+        jButton2.setText("CANCEL");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
 
@@ -404,10 +409,17 @@ public class AddCustomer extends javax.swing.JInternalFrame {
             psmt.executeUpdate();
             
             JOptionPane.showMessageDialog(null, "Customer Added Successfully");
+            
+            this.setVisible(false);
         } catch (Exception ex) {
             Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

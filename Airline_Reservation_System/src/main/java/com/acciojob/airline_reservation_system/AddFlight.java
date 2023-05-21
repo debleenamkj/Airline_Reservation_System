@@ -259,7 +259,12 @@ public class AddFlight extends javax.swing.JInternalFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jButton2.setText("DELETE");
+        jButton2.setText("CANCEL");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -354,6 +359,8 @@ public class AddFlight extends javax.swing.JInternalFrame {
             psmt.executeUpdate();
             
             JOptionPane.showMessageDialog(null, "Flight Added Successfully");
+            
+            this.setVisible(false);
         } catch (Exception ex) {
             Logger.getLogger(AddFlight.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -362,6 +369,12 @@ public class AddFlight extends javax.swing.JInternalFrame {
     private void seatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seatsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_seatsActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

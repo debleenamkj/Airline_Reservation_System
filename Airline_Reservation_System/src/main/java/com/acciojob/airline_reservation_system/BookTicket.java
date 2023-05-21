@@ -644,6 +644,8 @@ public class BookTicket extends javax.swing.JInternalFrame {
             
             JOptionPane.showMessageDialog(null, "Ticket Booked Successfully");
             
+            this.setVisible(false);
+            
         } catch (Exception ex) {
             Logger.getLogger(BookTicket.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -651,6 +653,7 @@ public class BookTicket extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
