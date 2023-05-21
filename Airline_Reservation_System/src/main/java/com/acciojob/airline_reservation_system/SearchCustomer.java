@@ -9,8 +9,6 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,32 +17,13 @@ import javax.swing.JOptionPane;
  *
  * @author Debleena Mukherjee
  */
-public class AddCustomer extends javax.swing.JInternalFrame {
+public class SearchCustomer extends javax.swing.JInternalFrame {
 
     /** Creates new form AddCustomer */
-    public AddCustomer() {
+    public SearchCustomer() {
         initComponents();
         
         this.getContentPane().setBackground(new Color(44,74,97,255));
-        AutoID();
-    }
-    
-    public void AutoID(){
-        try {
-            Connection conn = DBConn.getConnection();
-            PreparedStatement psmt = conn.prepareStatement("select MAX(CustomerID) from customer");
-            ResultSet rs = psmt.executeQuery();
-            rs.next();
-            if(rs.getString("MAX(CustomerID)") == null){
-                custID.setText("CS001");
-            } else{
-                long id = Long.parseLong(rs.getString("MAX(CustomerID)").substring(2,rs.getString("MAX(CustomerID)").length()));
-                id++;
-                custID.setText("CS"+String.format("%03d", id));
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /** This method is called from within the constructor to
@@ -59,7 +38,7 @@ public class AddCustomer extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        custID = new javax.swing.JTextField();
+        customerid = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -68,6 +47,7 @@ public class AddCustomer extends javax.swing.JInternalFrame {
         lastname = new javax.swing.JTextField();
         passport = new javax.swing.JTextField();
         nationalid = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         contact = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -75,28 +55,26 @@ public class AddCustomer extends javax.swing.JInternalFrame {
         male = new javax.swing.JRadioButton();
         female = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         address = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        date = new com.toedter.calendar.JDateChooser();
+        dob = new javax.swing.JTextField();
 
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Add Customer");
+        jLabel1.setText("Search Customer");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 140));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel2.setText("Customer ID");
 
-        custID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        custID.addActionListener(new java.awt.event.ActionListener() {
+        customerid.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        customerid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                custIDActionPerformed(evt);
+                customeridActionPerformed(evt);
             }
         });
 
@@ -140,6 +118,14 @@ public class AddCustomer extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton1.setText("SEARCH");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -150,20 +136,26 @@ public class AddCustomer extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(87, 87, 87)
-                        .addComponent(nationalid, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                        .addComponent(nationalid, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5))
-                        .addGap(72, 72, 72)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passport)
-                            .addComponent(lastname)
-                            .addComponent(custID)
-                            .addComponent(firstname))))
-                .addGap(34, 34, 34))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(passport)
+                                    .addComponent(lastname)
+                                    .addComponent(firstname)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(customerid, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)))))
+                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,8 +163,9 @@ public class AddCustomer extends javax.swing.JInternalFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(custID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                    .addComponent(customerid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(firstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,7 +181,7 @@ public class AddCustomer extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nationalid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 140));
@@ -225,19 +218,6 @@ public class AddCustomer extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel10.setText("Date Of Birth");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jButton1.setText("ADD");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jButton2.setText("DELETE");
-
-        jScrollPane1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-
         address.setColumns(20);
         address.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         address.setRows(5);
@@ -246,37 +226,32 @@ public class AddCustomer extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel7.setText("Address");
 
-        date.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dob.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dobActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel10)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addGap(50, 50, 50)))
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(female)
-                            .addComponent(male)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(contact)
-                            .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
-                        .addComponent(jButton2)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(male)
+                    .addComponent(female)
+                    .addComponent(contact)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                    .addComponent(dob))
+                .addGap(28, 28, 28))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,25 +260,21 @@ public class AddCustomer extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(55, 55, 55)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(male))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addComponent(female)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                    .addComponent(jLabel10)
+                    .addComponent(dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -315,12 +286,12 @@ public class AddCustomer extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
+                        .addGap(36, 36, 36)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(317, 317, 317)
+                        .addGap(301, 301, 301)
                         .addComponent(jLabel1)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,15 +302,15 @@ public class AddCustomer extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void custIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custIDActionPerformed
+    private void customeridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customeridActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_custIDActionPerformed
+    }//GEN-LAST:event_customeridActionPerformed
 
     private void firstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameActionPerformed
         // TODO add your handling code here:
@@ -374,51 +345,46 @@ public class AddCustomer extends javax.swing.JInternalFrame {
             // TODO add your handling code here:
             Connection conn = DBConn.getConnection();
             
-            String customerID = custID.getText();
-            String fistName = firstname.getText();
-            String lastName = lastname.getText();
-            String passportNo = passport.getText();
-            String nationalID = nationalid.getText();
-            String adrs = address.getText();
-            String cntc = contact.getText();
-            String gender = "";
-            if(male.isSelected()){
-                gender = "male";
+            String customer = customerid.getText();
+            PreparedStatement psmt = conn.prepareStatement("Select * from customer where CustomerID =?");
+            psmt.setString(1,customer);
+            
+            ResultSet rs = psmt.executeQuery();
+            
+            if(rs.next() != false){
+                firstname.setText(rs.getString("FirstName"));
+                lastname.setText(rs.getString("LastName"));
+                passport.setText(rs.getString("Passport"));
+                nationalid.setText(rs.getString("NationalID"));
+                address.setText(rs.getString("Address"));
+                contact.setText(rs.getString("Contact"));
+                if(rs.getString("Gender").equals("male")){
+                    male.setSelected(true);
+                } else{
+                    female.setSelected(true);
+                }
+                dob.setText(rs.getString("DOB"));
             } else{
-                gender = "female";
+                JOptionPane.showMessageDialog(null, "Customer Does Not Exist");
             }
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            String dob = df.format(date.getDate());
-            
-            PreparedStatement psmt = conn.prepareStatement("insert into customer(CustomerID,FirstName,LastName,Passport,NationalID,Address,Contact,Gender,DOB)values(?,?,?,?,?,?,?,?,?)");
-            psmt.setString(1, customerID);
-            psmt.setString(2, fistName);
-            psmt.setString(3, lastName);
-            psmt.setString(4, passportNo);
-            psmt.setString(5, nationalID);
-            psmt.setString(6, adrs);
-            psmt.setString(7, cntc);
-            psmt.setString(8, gender);
-            psmt.setString(9, dob);
-            
-            psmt.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Customer Added Successfully");
         } catch (Exception ex) {
-            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void dobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dobActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dobActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea address;
     private javax.swing.JTextField contact;
-    private javax.swing.JTextField custID;
-    private com.toedter.calendar.JDateChooser date;
+    private javax.swing.JTextField customerid;
+    private javax.swing.JTextField dob;
     private javax.swing.JRadioButton female;
     private javax.swing.JTextField firstname;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
