@@ -578,10 +578,14 @@ public class BookTicket extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try{
+            if(totalticket.getText().equals("0")){
+                 JOptionPane.showMessageDialog(null, "Enter a valid number to calculate total fare");
+            } else{
             int cost = Integer.parseInt(fare.getText());
             int numberOfTickets = Integer.parseInt(totalticket.getText());
             int ans = cost * numberOfTickets;
             totalfare.setText(String.valueOf(ans));
+            }
         } catch(Exception e){
             JOptionPane.showMessageDialog(null, "Enter a valid number to calculate total fare");
         }
@@ -596,6 +600,7 @@ public class BookTicket extends javax.swing.JInternalFrame {
             String firstName = firstname.getText();
             String lastName = lastname.getText();
             String contactt = contact.getText();
+            int ans = 0;
             String gender = "";
             if(male.isSelected()){
                 gender = "male";
@@ -609,7 +614,7 @@ public class BookTicket extends javax.swing.JInternalFrame {
                 } else{
                     int f = Integer.parseInt(totalfare.getText());
                     int disc = Integer.parseInt(discount.getText());
-                    int ans = f - disc;
+                    ans = f - disc;
                     cost = String.valueOf(ans);
                 }
             } else{
@@ -618,7 +623,7 @@ public class BookTicket extends javax.swing.JInternalFrame {
                 } else{
                     int f = Integer.parseInt(fare.getText());
                     int disc = Integer.parseInt(discount.getText());
-                    int ans = f - disc;
+                    ans = f - disc;
                     cost = String.valueOf(ans);
                 }
             }
@@ -639,12 +644,16 @@ public class BookTicket extends javax.swing.JInternalFrame {
             psmt.setString(8, gender);
             psmt.setString(9, contactt);
             psmt.setString(10, cost);
+            if(ans <= 0){
+               JOptionPane.showMessageDialog(null, "Discount cannot be more than the fare");
+            } else{
+                 psmt.executeUpdate();
+                 JOptionPane.showMessageDialog(null, "Ticket Booked Successfully");
             
-            psmt.executeUpdate();
+                this.setVisible(false);
+            }
             
-            JOptionPane.showMessageDialog(null, "Ticket Booked Successfully");
             
-            this.setVisible(false);
             
         } catch (Exception ex) {
             Logger.getLogger(BookTicket.class.getName()).log(Level.SEVERE, null, ex);
